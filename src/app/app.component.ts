@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {StockServiceService} from './stock-service.service'
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,35 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+  
+  
+  title = 'Stock App';
+  constructor(private stockService: StockServiceService){
+    
+    this.stockService.getStock()
+    .subscribe(
+         (data) => {
+           
+           console.log("we got some stock data",data);
+           
+         }
+      
+      
+      
+      )
+    
+    
+    
+    
+  }
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
 }
