@@ -5,7 +5,8 @@ import {Observable} from "rxjs/Observable";
 @Injectable()
 export class StockServiceService {
     
-    url:string = 'https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol=MSFT&apikey=TA0MFSEH1N40C4ZO'
+    url:string = 'https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=MSFT&apikey=TA0MFSEH1N40C4ZO'
+    searchUrl:string = 'https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol='
 
   constructor(public http: Http) { }
   
@@ -22,6 +23,19 @@ export class StockServiceService {
       
   }
   
+    
+  searchStock(query){
+      return this.http.get(this.searchUrl + query + '&apikey=TA0MFSEH1N40C4ZO')
+      .map(
+          (response:Response)=>{
+          
+           const stockQueryData = response.json();
+          return stockQueryData;
+          
+      })
+      
+      
+  }
   
  
   

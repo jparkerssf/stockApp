@@ -1,6 +1,48 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
+<!--<div style="text-align:center">-->
   <h1>
-    Welcome to {{title}}!
+    Wall Street Trader!
   </h1>
- 
+  <p>This graph displays monthly time series (last trading day of each month, monthly open, monthly high, monthly low, monthly close, monthly volume) of the equity specified, covering up to 20 years of historical data.</p>
+   <p>The graph is currently displaying {{stockSymbol}} data from the {{timeZone}} timezone</p>
+
+  <p>Last Refreshed on {{lastRefreshed}}</p>
+  
+ <div class="row"    >
+   <!--<div class="row"    *ngIf="lineChartData[0].data.length!==0" >-->
+  <div class="col-md-6">
+    <div class="input-group">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button" (click)="stockQuery(searchInput.value)" >Search</button>
+      </span>
+      <input type="text" class="form-control" placeholder="Search for current stock data" #searchInput >
+    </div><!-- /input-group -->
+    <div style="display: block;">
+    <canvas baseChart width="75" height="75"
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [colors]="lineChartColors"
+                [legend]="lineChartLegend"
+                [chartType]="lineChartType"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)"
+               
+          *ngIf="lineChartData[0].data.length!==0"></canvas>
+    </div>
+  </div>
+  <div class="col-md-6" style="margin-bottom: 10px">
+    <table class="table table-responsive table-condensed">
+      <tr>
+        <!--<th *ngFor="let label of lineChartLabels">{{label}}</th>-->
+      </tr>
+      <tr *ngFor="let d of lineChartData">
+        <!--<td *ngFor="let label of lineChartLabels; let j=index">{{d && d.data[j]}}</td>-->
+      </tr>
+    </table>
+    
+
+  </div>
+      <button type="button" class="btn btn-primary"  (click)="randomize()">Randomize Data Set</button>
+
+</div>

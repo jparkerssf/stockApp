@@ -4,6 +4,8 @@ import { HttpModule } from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
 import { AppComponent } from './app.component';
 import {StockServiceService} from './stock-service.service'
+import { ChartsModule } from 'ng2-charts';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -11,7 +13,8 @@ import {StockServiceService} from './stock-service.service'
   imports: [
     BrowserModule,
      HttpClientModule,
-    HttpModule
+    HttpModule,
+     ChartsModule
 
   ],
   providers: [StockServiceService],
