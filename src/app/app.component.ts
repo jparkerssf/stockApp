@@ -15,7 +15,7 @@ export class AppComponent {
 
   
   public lineChartData:Array <any> = [
-    {data: [], label: 'Series A' }
+    {data: [], label: ' ' }
   ];
   public lineChartLabels:Array<any> = [];
   public lineChartOptions:any = {
@@ -24,9 +24,30 @@ export class AppComponent {
   lastRefreshed:string;
   timeZone:string;
   stockSymbol:string;
-  
-  ngAfterViewInit() {
+  news:any = [];
 
+  ngAfterViewInit() {
+       ///Here we call the ny times api to get the top news article
+    this.stockService.getNews()
+      .subscribe (
+              (data) => { 
+                      console.log(data, "We got some data!");
+                      this.news = data.results;
+                      console.log(this.news,"here is the news!");
+                    
+                      
+              },
+              (error) => {
+                console.log(error);
+               
+              }
+            
+            )
+      
+      
+      
+      
+      
     this.stockService.getStock()
     .subscribe(
         (data) => {
@@ -69,11 +90,7 @@ export class AppComponent {
    
   }///ends on init function
   
-  
-  
-  
-  
-  
+
   
   public lineChartColors:Array<any> = [
     { // grey

@@ -4,9 +4,9 @@
     Wall Street Trader!
   </h1>
   <p>This graph displays monthly time series (last trading day of each month, monthly open, monthly high, monthly low, monthly close, monthly volume) of the equity specified, covering up to 20 years of historical data.</p>
-   <p>The graph is currently displaying {{stockSymbol}} data from the {{timeZone}} timezone</p>
+   <p>The graph is currently displaying <strong> {{stockSymbol}} </strong> data from the {{timeZone}} timezone</p>
 
-  <p>Last Refreshed on {{lastRefreshed}}</p>
+  <p>Last Refreshed on <strong>{{lastRefreshed}}</strong></p>
   
  <div class="row"    >
    <!--<div class="row"    *ngIf="lineChartData[0].data.length!==0" >-->
@@ -43,6 +43,20 @@
     
 
   </div>
-      <button type="button" class="btn btn-primary"  (click)="randomize()">Randomize Data Set</button>
+   
+      <!--<button type="button" class="btn btn-primary"  (click)="randomize()">Randomize Data Set</button>-->
+ <h2>Your News</h2>
+ <div class="col-md-4" >
+<div class="card"  class="scroll-bar">
+  <div class="card-block"  *ngFor="let newsData of news">
+    <h4 class="card-title">{{newsData.title}}</h4>
+    <h6 class="card-subtitle mb-2 text-muted">{{newsData.byline}}  </h6>
+      <h6 class="card-subtitle mb-2 text-muted">Section : {{newsData.section}} </h6>
+    <p class="card-text">   {{newsData.abstract}}</p>
+    <a href="{{newsData.short_url}}" class="card-link">   Read about it more</a>
 
+  </div>
 </div>
+</div>
+</div>
+ 

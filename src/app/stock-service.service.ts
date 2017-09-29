@@ -4,7 +4,8 @@ import 'rxjs/add/operator/map';
 import {Observable} from "rxjs/Observable";
 @Injectable()
 export class StockServiceService {
-    
+   newsUrl:string =  "https://api.nytimes.com/svc/topstories/v2/home.json?api-key=e9e5e1c20237468cbe71302a56521556";
+
     url:string = 'https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=MSFT&apikey=TA0MFSEH1N40C4ZO'
     searchUrl:string = 'https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol='
 
@@ -36,6 +37,20 @@ export class StockServiceService {
       
       
   }
+  getNews() {
+      return this.http.get(this.newsUrl)
+      .map(
+          (response:Response) => {
+          
+          const news = response.json();
+          return news;
+          
+      }
+      )
+      
+      
+  }
+  
   
  
   
