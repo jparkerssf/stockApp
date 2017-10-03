@@ -13,7 +13,7 @@ export class AppComponent {
   constructor(private stockService: StockServiceService){}
   //ends the constructor
 
-  
+  savedStocks = [{data:[], label:''}];
   public lineChartData:Array <any> = [
     {data: [], label: ' ' }
   ];
@@ -51,6 +51,8 @@ export class AppComponent {
     this.stockService.getStock()
     .subscribe(
         (data) => {
+          
+            console.log(this.lineChartData[0].data,"check graph dat" )
             console.log("data", data);
             this.lastRefreshed = data["Meta Data"]["3. Last Refreshed"];
             this.timeZone = data["Meta Data"]["4. Time Zone"];
@@ -66,6 +68,7 @@ export class AppComponent {
                 for(var key in dataObject){
                   if(dataObject.hasOwnProperty(key)){
                     let stockObject = dataObject[key];
+                         
                         this.lineChartData[0].data.push(stockObject["2. high"]);
                   }
                 }
@@ -144,7 +147,10 @@ export class AppComponent {
   
   ///the result from searching the stock api
    stockQuery(query){
-     
+                 console.log(this.lineChartData[0].data,"check graph data" )
+          this.lineChartData[0].data = [];
+                      this.lineChartLabels = []
+
         console.log("query type",query);
          this.stockService.searchStock(query)
            .subscribe(
@@ -191,12 +197,13 @@ export class AppComponent {
    }
   
   
-  
-  
-  
-  
-  
-  
+  saveStock(stock) {
+    
+    
+    
+    
+    
+  }
   
   
   
