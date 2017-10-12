@@ -1,0 +1,16 @@
+
+.scroll-bar {
+float:left;
+width:1000px;
+overflow-y: auto;
+height: 400px;
+}
+
+.navbar{
+    background-color:rgb(86, 129, 194);
+    border-color: rgb(86, 129, 194);
+}
+
+.glyphicon {
+    font-size: 35px;
+}

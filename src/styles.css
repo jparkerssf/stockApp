@@ -1,1 +1,33 @@
 /* You can add global styles to this file, and also import other style files */
+/* Add application styles & imports to this file! */
+/*For our base theme from angular */
+@import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
+
+/* ################    Style.css File    ############### 
+    Global css that will apply across our entire application will be applied here. Css that is specific to a component should be written in that components css. For example register.component.css.
+*/
+
+/* the * is appllies to all html elements and be default 
+chrome applies a blue outline when the item is active. This will disable it*/
+*{
+  outline: none;
+}
+
+/* All tags that are i tags, <i> for icons will have a hand cursor on hover*/
+i {
+  cursor: pointer;
+}
+
+/* Custom  Class to apply to our forms and apply the below styles
+display flex and flex direciont makes our elements within this class stack vertical, hence column.  align-items: center = centers the child elents in the container. Having one class for both forms lets us apply one change and it will be applied to both forms
+*/
+.container-form {
+  display: flex;
+  flex-direction: column; 
+  width: 500px;
+  background-color: #596f79;
+  align-items: center;
+  margin: 20vh auto 0 auto;
+  border-radius: 5px;
+  padding: 20px;
+}

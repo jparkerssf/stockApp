@@ -1,0 +1,10 @@
+
+
+.example-container > * {
+  width: 100%;
+}
+.center{
+    display: block;
+    width: 130px;
+    margin: 10px auto;
+}

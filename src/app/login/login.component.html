@@ -1,0 +1,26 @@
+<!-- Below on the form element #loginForm is creating a variable on the html, javascript equivlant would be 
+var loginFrom = <form></form>; the # lets use reference the element with by a variable name and use it in our html. 
+-->
+
+ <form class="container-form" #loginForm="ngForm" (ngSubmit)="signupForm(loginForm)" novalidate>
+     
+      <md-form-field  color='warn'>
+        <input placeholder= "Email" name="email" [(ngModel)]="user.email" type="email" mdInput required>
+      </md-form-field>
+ 
+ 
+
+      <md-form-field>
+        <input placeholder="Password" name="password" [(ngModel)]="user.password" type="password" mdInput required >
+      </md-form-field>
+ 
+      <button md-raised-button color="primary" type="submit" class="btn btn-success">Submit</button>
+ 
+    </form>
+
+
+
+<!-- Creates a link to it will change to the register view when clicked-->
+ <div class="center">
+   <a routerLink="/register" routerLinkActive="active"> Need An Account?</a>
+ <div>

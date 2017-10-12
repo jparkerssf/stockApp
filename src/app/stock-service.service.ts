@@ -5,14 +5,14 @@ import {Observable} from "rxjs/Observable";
 @Injectable()
 export class StockServiceService {
    newsUrl:string =  "https://api.nytimes.com/svc/topstories/v2/home.json?api-key=e9e5e1c20237468cbe71302a56521556";
-
+     dailyUrl:string = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=MSFT&interval=15min&outputsize=full&apikey=demo"
     url:string = 'https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=MSFT&apikey=TA0MFSEH1N40C4ZO'
     searchUrl:string = 'https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol='
 
   constructor(public http: Http) { }
   
   getStock(){
-      return this.http.get(this.url)
+      return this.http.get(this.dailyUrl)
       .map(
           (response:Response)=>{
           
