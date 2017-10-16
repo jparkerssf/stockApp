@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 /* Add application styles & imports to this file! */
 /*For our base theme from angular */
-@import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 
 /* ################    Style.css File    ############### 
     Global css that will apply across our entire application will be applied here. Css that is specific to a component should be written in that components css. For example register.component.css.

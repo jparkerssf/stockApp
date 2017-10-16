@@ -10,10 +10,45 @@
     </div>
   </div>
 </nav>
-<p>This graph displays monthly time series (last trading day of each month, monthly open, monthly high, monthly low, monthly close, monthly volume) of the equity specified, covering up to 20 years of historical data.</p>
-<p>The graph is currently displaying <strong> {{stockSymbol}} </strong> data from the {{timeZone}} timezone</p>
+<!--<p>This graph displays monthly time series (last trading day of each month, monthly open, monthly high, monthly low, monthly close, monthly volume) of the equity specified, covering up to 20 years of historical data.</p>-->
+<!--<p>The graph is currently displaying <strong> {{stockSymbol}} </strong> data from the {{timeZone}} timezone</p>-->
+
+<!--<p>Last Refreshed on <strong>{{lastRefreshed}}</strong></p>-->
+
+
+<div class="card">
+ 
+  <div class="card-block">
+    <h4 class="card-title">Stock Details</h4>
+    <p class="card-text">The graph is currently displaying <strong> {{stockSymbol}} </strong> data from the {{timeZone}} timezone</p>
 
 <p>Last Refreshed on <strong>{{lastRefreshed}}</strong></p>
+
+<p>
+      Opening Price:{{todaysData.open}}<br>
+      High:{{todaysData.high}}<br>
+      Low:{{todaysData.low}}<br>
+      Close:{{todaysData.close}}
+
+  
+  </p>
+  </div>
+</div>
+
+<!--<md-card-content>-->
+<!--  <p>The graph is currently displaying <strong> {{stockSymbol}} </strong> data from the {{timeZone}} timezone</p>-->
+      
+<!-- Last Refreshed on <strong>{{lastRefreshed}}</strong>-->
+      
+
+<!--      <strong> Opening Price:</strong>{{todaysData.open}}<br>-->
+<!--      <strong> High:{{todaysData.high}}<br>-->
+<!--      <strong> Low:</strong>{{todaysData.low}}<br>-->
+<!--      <strong>Close:</strong>  {{todaysData.close}}-->
+      
+      
+      
+<!--  </md-card-content>-->
 
 <div class="row">
   <!--<div class="row"    *ngIf="lineChartData[0].data.length!==0" >-->
@@ -31,7 +66,7 @@
     </div>
 
   </div>
-  <button type="button" class="btn btn-primary" (click)="updateView()">Save Stock</button>
+  <button type="button" class="btn btn-primary" (click)="updateView()" (click)="addStock(stockSymbol)">Add to Watch List</button>
 
   <div class="col-md-6" style="margin-bottom: 10px">
     <table class="table table-responsive table-condensed">
@@ -62,31 +97,35 @@
   <!--    </div>-->
   <!--  </div>-->
   <!--</div>-->
-<div class="card" style="width: 20rem;" class="col-md-4">
-  <img class="card-img-top" src="..." alt="Card image cap">
-  <div class="card-block">
-    <h4 class="card-title">Card title</h4>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
+<!--<div class="card" style="width: 20rem;" class="col-md-4">-->
+<!--  <img class="card-img-top" src="..." alt="Card image cap">-->
+<!--  <div class="card-block">-->
+<!--    <h4 class="card-title">Card title</h4>-->
+<!--    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
+<!--    <a href="#" class="btn btn-primary">Go somewhere</a>-->
+<!--  </div>-->
+<!--</div>-->
+
+
+<!--  <div class="col-md-2" *ngIf="lineChartData[0].data.length!==0">-->
+<!--  <div class="card" style="width: 20rem;" class="scroll-bar">-->
+<!--    <img class="card-img-top" src="..." alt="Card image cap">-->
+<!--    <div class="card-block" *ngFor="let newsData of news">-->
+<!--      <h4 class="card-title">{{newsData.title}}</h4>-->
+<!--      <p class="card-text">{{newsData.abstract}}</p>-->
+<!--      <a href="{{newsData.short_url}}" class="btn btn-primary">Read more here</a>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<div  *ngIf="lineChartData[0].data.length!==0">
+  <h2>My WatchList</h2>
+  
+<ul class="list-group col-md-2" *ngFor="let stock of watchList" >
+  <li class="list-group-item list-group-item-info" (click)="stockQuery(stock)">Stock Symbol: {{stock}}  <br> SMA Price</li>
+</ul>
+
 </div>
-
-
-  <div class="col-md-4" *ngIf="lineChartData[0].data.length!==0">
-  <div class="card" style="width: 20rem;" class="scroll-bar">
-    <img class="card-img-top" src="..." alt="Card image cap">
-    <div class="card-block" *ngFor="let newsData of news">
-      <h4 class="card-title">{{newsData.title}}</h4>
-      <p class="card-text">{{newsData.abstract}}</p>
-      <a href="{{newsData.short_url}}" class="btn btn-primary">Read more here</a>
-    </div>
-  </div>
-</div>
-
-
-
-
-
 
 
 </div>
