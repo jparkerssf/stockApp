@@ -7,7 +7,8 @@ height: 400px;
 }
 
 .navbar{
-    background-color:rgb(86, 129, 194);
+    /*background-color:rgb(86, 129, 194);*/
+     background-color:#337ab7;
     border-color: rgb(86, 129, 194);
 }
 

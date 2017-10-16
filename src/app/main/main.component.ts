@@ -370,6 +370,7 @@ userId:string;
         (error)=>{
            
           console.log("error",error);
+          alert("oh no there was an error!")
            
         }
          

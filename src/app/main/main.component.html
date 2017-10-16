@@ -6,7 +6,7 @@
  
  <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">   <span class="glyphicon glyphicon-signal" aria-hidden="true"></span>Wall Street Trader </a>
+      <a class="navbar-brand" href="#">   <span class="glyphicon glyphicon-signal" aria-hidden="true"></span> </a>
     </div>
   </div>
 </nav>
@@ -16,10 +16,10 @@
 <!--<p>Last Refreshed on <strong>{{lastRefreshed}}</strong></p>-->
 
 
-<div class="card">
+<div class="card" class="panel panel-primary">
  
   <div class="card-block">
-    <h4 class="card-title">Stock Details</h4>
+    <h4 class="card-title page-header" class="panel-heading panel-primary">Stock Details</h4>
     <p class="card-text">The graph is currently displaying <strong> {{stockSymbol}} </strong> data from the {{timeZone}} timezone</p>
 
 <p>Last Refreshed on <strong>{{lastRefreshed}}</strong></p>
@@ -55,11 +55,14 @@
 <div class="row">
   <!--<div class="row"    *ngIf="lineChartData[0].data.length!==0" >-->
   <div class="col-md-6">
+    <div>
     <div class="input-group">
       <span class="input-group-btn">
         <button class="btn btn-default" type="button" (click)="stockQuery(searchInput.value)" >Search</button>
       </span>
       <input type="text" class="form-control" placeholder="Search for current stock data" #searchInput>
+        <button type="button" class="btn btn-primary btn-block" (click)="updateView()" (click)="addStock(stockSymbol)">Add to Watch List</button>
+</div>
     </div>
     <!-- /input-group -->
     <div style="display: block;">
@@ -68,7 +71,8 @@
     </div>
 
   </div>
-  <button type="button" class="btn btn-primary" (click)="updateView()" (click)="addStock(stockSymbol)">Add to Watch List</button>
+  
+  <!--<button type="button" class="btn btn-primary" (click)="updateView()" (click)="addStock(stockSymbol)">Add to Watch List</button>-->
 
   <div class="col-md-6" style="margin-bottom: 10px">
     <table class="table table-responsive table-condensed">
@@ -99,14 +103,6 @@
   <!--    </div>-->
   <!--  </div>-->
   <!--</div>-->
-<!--<div class="card" style="width: 20rem;" class="col-md-4">-->
-<!--  <img class="card-img-top" src="..." alt="Card image cap">-->
-<!--  <div class="card-block">-->
-<!--    <h4 class="card-title">Card title</h4>-->
-<!--    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
-<!--    <a href="#" class="btn btn-primary">Go somewhere</a>-->
-<!--  </div>-->
-<!--</div>-->
 
 
 <!--  <div class="col-md-2" *ngIf="lineChartData[0].data.length!==0">-->
@@ -118,13 +114,13 @@
 <!--      <a href="{{newsData.short_url}}" class="btn btn-primary">Read more here</a>-->
 <!--    </div>-->
 <!--  </div>-->
-<!--</div>-->
+<!-- </div>-->
 
-<div  *ngIf="lineChartData[0].data.length!==0">
-  <h2>My WatchList</h2>
+<div  *ngIf="lineChartData[0].data.length!==0" class="col-md-3" >
+  <h2 class="text-center page-header"> My WatchList</h2>
   
-<ul class="list-group col-md-2" *ngFor="let stock of watchList" >
-  <li class="list-group-item list-group-item-info" (click)="loadStock(stock.stockSymbol)">Stock Symbol: {{stock.stockSymbol}}  <br> SMA Price  </li>
+<ul  *ngFor="let stock of watchList" >
+  <li class="list-group-item list-group-item-info text-center" (click)="loadStock(stock.stockSymbol)">Stock Symbol: {{stock.stockSymbol}}  <br> SMA Price  </li>
 <!--   <button type="button" class="btn btn-default btn-sm pull-right" (click)="deleteStock(stock.id)">-->
 <!--  <span class="glyphicon glyphicon-trash"  aria-hidden="true"></span> -->
 <!--</button>-->
