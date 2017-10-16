@@ -11,6 +11,9 @@ export class StockServiceService {
     smaUrl :string = "https://www.alphavantage.co/query?function=SMA&symbol=MSFT&interval=15min&time_period=10&series_type=close&apikey=TA0MFSEH1N40C4ZO"
     searchSma :string = "https://www.alphavantage.co/query?function=SMA&symbol=" 
     searchSma2:string = "&interval=15min&time_period=10&series_type=close&apikey=TA0MFSEH1N40C4ZO"
+    postStock:string = "http://stock-app-jadtheparker.c9users.io:8080/api/watchLists"
+     myStocks:string = "http://stock-app-jadtheparker.c9users.io:8080/api/watchLists?filter[where][userID]="
+
 
 
   constructor(public http: Http) { }
@@ -80,10 +83,29 @@ export class StockServiceService {
       
       
   }
+    //adding a stocksymbol to the list
+   addWatchList(symbol){
+        console.log("posted", symbol)
+        return this.http.post(this.postStock,symbol)
+        .map( res => res.json())
+        
+    }
+  getWatchList(id) {
+    console.log(id,"the user id passed in")
+    
+    return this.http.get(this.myStocks + id) 
+    
+    .map(res =>res.json())
+      
+      
+  }
   
-  
-  
- 
+ deleteFavorite(id) {
+    
+     
+     return this.http.delete(this.postStock + "/" +id)
+     
+ }
   
   
   

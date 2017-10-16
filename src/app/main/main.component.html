@@ -25,10 +25,12 @@
 <p>Last Refreshed on <strong>{{lastRefreshed}}</strong></p>
 
 <p>
-      Opening Price:{{todaysData.open}}<br>
-      High:{{todaysData.high}}<br>
-      Low:{{todaysData.low}}<br>
-      Close:{{todaysData.close}}
+      <strong>Opening Price: </strong>{{todaysData.open}}<br>
+       <strong>High:</strong>{{todaysData.high}}<br>
+       <strong>Low:</strong>{{todaysData.low}}<br>
+       <strong>Close:</strong>{{todaysData.close}}<br>
+       <strong>Volume:</strong>{{todaysData.volume}}<br>
+
 
   
   </p>
@@ -122,7 +124,13 @@
   <h2>My WatchList</h2>
   
 <ul class="list-group col-md-2" *ngFor="let stock of watchList" >
-  <li class="list-group-item list-group-item-info" (click)="stockQuery(stock)">Stock Symbol: {{stock}}  <br> SMA Price</li>
+  <li class="list-group-item list-group-item-info" (click)="loadStock(stock.stockSymbol)">Stock Symbol: {{stock.stockSymbol}}  <br> SMA Price  </li>
+<!--   <button type="button" class="btn btn-default btn-sm pull-right" (click)="deleteStock(stock.id)">-->
+<!--  <span class="glyphicon glyphicon-trash"  aria-hidden="true"></span> -->
+<!--</button>-->
+<button type="button" class="btn btn-danger btn-sm btn-block" (click)="deleteStock(stock.id)"> <span class="glyphicon glyphicon-trash"  aria-hidden="true"></span>
+</button>
+
 </ul>
 
 </div>

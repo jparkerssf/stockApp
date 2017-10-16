@@ -13,8 +13,14 @@ import {MdCardModule} from '@angular/material';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent  {
-
-  constructor(private stockService: StockServiceService){}
+userId:string;
+  constructor(private stockService: StockServiceService){
+    
+  this.userId = window.localStorage.getItem('id');
+  console.log("user",this.userId)
+    
+    
+  }
   //ends the constructor
     
   //savedStocks = {data:[], label:''};
@@ -30,16 +36,25 @@ export class MainComponent  {
     open:" ",
     high: " ",
     low:" ",
-    close:" "
+    close:" ",
+    volume:" "
     
   };
   smaArray:any = [];
+  //this array is to push the symbols and not allow extra symbols to be pushedinto the watchlist
+  symbolsArray = [];
   lastRefreshed:string;
   timeZone:string;
   stockSymbol:string;
   smaRefreshed:string
   closingData:any = []
   news:any = [];
+  symbolObject:any = {
+    userID:"",
+    stockSymbol:""
+    
+    
+  }
   
   
   watchList:Array<any> = [];
@@ -78,7 +93,26 @@ export class MainComponent  {
     //         )
       
       
+    this.stockService.getWatchList(this.userId)
+    .subscribe(
+      (data)=> {
+        
+          console.log(data,"my favorites!")  
+          console.log("my watch list is right below!")
+          this.watchList = data;
+          console.log(this.watchList)
+          let favorites = this.watchList
+           console.log("favorites variable", favorites)
+        for(var i = 0; i < favorites.length; i++){
+          
+             this.symbolsArray.push(favorites[i].stockSymbol)  
+
+        }
+         console.log(this.symbolsArray, "this is the temporary symbols array");
+      }
       
+      
+      )
       
       
     this.stockService.getStock()
@@ -123,6 +157,8 @@ export class MainComponent  {
               this.todaysData.high =  this.closingData[0]["2. high"] 
               this.todaysData.low =  this.closingData[0]["3. low"] 
               this.todaysData.close =  this.closingData[0]["4. close"] 
+              this.todaysData.volume =  this.closingData[0]["5. volume"] 
+
               console.log(this.todaysData,"todays data")
 
         },
@@ -197,12 +233,13 @@ export class MainComponent  {
   
   
   ///the result from searching the stock api
-  stockQuery(query){
+  loadStock(favorite){
                this.todaysData= {
                     open:" ",
                     high: " ",
                     low:" ",
-                    close:" "
+                    close:" ",
+                    volume: " "
               
             };
     
@@ -210,9 +247,85 @@ export class MainComponent  {
     
          console.log(this.lineChartData[0].data,"check graph data" )
           this.lineChartData[0].data = [];
-                      this.lineChartLabels = []
+           this.lineChartLabels = []
+
+        console.log("query type",favorite);
+        
+        this.stockService.searchStock(favorite)
+          .subscribe(
+        (data) => {
+            console.log("query data", data);
+            this.lastRefreshed = data["Meta Data"]["3. Last Refreshed"];
+            this.timeZone = data["Meta Data"]["4. Time Zone"];
+            this.stockSymbol = data ["Meta Data"]["2. Symbol"]
+            console.log("monthly time series", data["Monthly Time Series"])
+            let dataObject = data["Monthly Time Series"]
+            
+                for (var key in dataObject) {
+                    this.lineChartLabels.push(key);
+                    
+
+                }
+                 for (var key in dataObject) { 
+                    this.closingData.push(dataObject[key]);
+                }
+                console.log(dataObject,"dataObject")
+                for(var key in dataObject){
+                  if(dataObject.hasOwnProperty(key)){
+                    let stockObject = dataObject[key];
+                        this.lineChartData[0].data.push(stockObject["2. high"]);
+                        
+                        
+                  }
+                }
+                console.log(this.lineChartData,"line chart data");
+               
+                 this.todaysData.open =  this.closingData[0]["1. open"] 
+                this.todaysData.high =  this.closingData[0]["2. high"] 
+                this.todaysData.low =  this.closingData[0]["3. low"] 
+                this.todaysData.close =  this.closingData[0]["4. close"] 
+                this.todaysData.volume =  this.closingData[0]["5. volume"] 
+
+                console.log(this.todaysData,"todays data")
+              
+            
+            
+            
+        },
+        (error)=>{
+           
+          console.log("error",error);
+           
+        }
+         
+         
+         
+      )
+   
+     
+     
+     
+  }///end of the stock query
+  
+  
+   stockQuery(query){
+               this.todaysData= {
+                    open:" ",
+                    high: " ",
+                    low:" ",
+                    close:" ",
+                    volume: " "
+              
+            };
+    
+       this.closingData = []
+    
+         console.log(this.lineChartData[0].data,"check graph data" )
+          this.lineChartData[0].data = [];
+           this.lineChartLabels = []
 
         console.log("query type",query);
+        
         this.stockService.searchStock(query)
           .subscribe(
         (data) => {
@@ -246,6 +359,8 @@ export class MainComponent  {
                 this.todaysData.high =  this.closingData[0]["2. high"] 
                 this.todaysData.low =  this.closingData[0]["3. low"] 
                 this.todaysData.close =  this.closingData[0]["4. close"] 
+                this.todaysData.volume =  this.closingData[0]["5. volume"] 
+
                 console.log(this.todaysData,"todays data")
               
             
@@ -265,18 +380,52 @@ export class MainComponent  {
      
      
      
-  }
+  }///end of the stock query
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
 addStock(symbol){
-  console.log("function triggered to add stock");
-   if(!this.watchList.includes(symbol)){
-           this.watchList.push(symbol);
-           console.log(this.watchList,"WatchList array");
-       } else{
-            alert("Already in your favorites!")
-       }
+  // console.log("function triggered to add stock");
+  if(!this.symbolsArray.includes(symbol)){
+    console.log(symbol,' this was the stock symbol pushed')
+    
+      this.symbolObject.userID = this.userId;
+      this.symbolObject.stockSymbol = symbol;
+  
+this.stockService.addWatchList(this.symbolObject)
 
-  console.log("my watch list ", this.watchList)
+  .subscribe (
+       (res) => {
+         
+          console.log(res,"response");
+          location.reload();
+         
+       }
+    
+    
+    )
+          console.log(this.watchList,"WatchList array");
+      } else{
+            alert("Already in your favorites!")
+      }
+
+  
+  
+  
+  
 }
  
   
@@ -294,9 +443,27 @@ addStock(symbol){
   
   
   
+  ///Remove a favorite
+deleteStock(stockID){
+   console.log("delete function was triggered",stockID);
+  this.stockService.deleteFavorite(stockID)
+  .subscribe(
+     (data) =>{
+       
+          console.log(data,"this was deleted");
+           location.reload();
+       
+     }, (error)=>{
+         alert("There was an error!")
+         console.log(error,"error deleting")
+       
+     }
+    
+    
+    )
   
   
-  
+}
   
   
   

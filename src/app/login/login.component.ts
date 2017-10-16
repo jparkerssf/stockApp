@@ -53,7 +53,9 @@ export class LoginComponent implements OnInit {
         */
         window.localStorage.setItem( "token", res.id)
         window.localStorage.setItem( "id", res.userId)
-       
+        
+         
+
         /*This line will navigate us to a different view using the router, remember router-link is replaced 
         with the components html on our app.html. To see routes and their related components view the 
         app.module and the router module below. To see what the variable this.returnUrl see line 13 above 
