@@ -8,7 +8,7 @@ export class UserService {
   /* Variable url is the path to my server yours will have your name in front of fall 
 for example     https://<studentname>-fall-2017-phortonssf.c9users.io:8080/api/AppUsers 
 */
-   url: string = "http://stock-app-jadtheparker.c9users.io:8080/api/appUsers";    
+   url: string = "https://stock-app-jadtheparker.c9users.io:8080/api/appUsers";    
   constructor(public http: Http) { }
 
 /*Function to register our user. Takes in one paramter which is a user object and sends it

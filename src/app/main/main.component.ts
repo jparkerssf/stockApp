@@ -18,6 +18,9 @@ userId:string;
     
   this.userId = window.localStorage.getItem('id');
   console.log("user",this.userId)
+  
+
+  
     
     
   }
@@ -50,7 +53,7 @@ userId:string;
   closingData:any = []
   news:any = [];
   symbolObject:any = {
-    userID:"",
+
     stockSymbol:""
     
     
@@ -96,7 +99,7 @@ userId:string;
     this.stockService.getWatchList(this.userId)
     .subscribe(
       (data)=> {
-        
+           console.log("what user id is passed in",this.userId)
           console.log(data,"my favorites!")  
           console.log("my watch list is right below!")
           this.watchList = data;
@@ -126,7 +129,7 @@ userId:string;
             this.timeZone = data["Meta Data"]["4. Time Zone"];
             this.stockSymbol = data ["Meta Data"]["2. Symbol"]
             console.log("monthly time series", data["Monthly Time Series"])
-            let dataObject = data["Time Series (15min)"]
+            let dataObject = data["Monthly Time Series"]
             
             
                 for (var key in dataObject) {
@@ -403,15 +406,16 @@ addStock(symbol){
   if(!this.symbolsArray.includes(symbol)){
     console.log(symbol,' this was the stock symbol pushed')
     
-      this.symbolObject.userID = this.userId;
+      // this.symbolObject.userID = this.userId;
       this.symbolObject.stockSymbol = symbol;
   
-this.stockService.addWatchList(this.symbolObject)
+this.stockService.addWatchList(this.symbolObject,this.userId)
 
   .subscribe (
        (res) => {
          
-          console.log(res,"response");
+          console.log(res,"Here is the response that I get back from the server when i post");
+          alert("You posted " + res.stockSymbol);
           location.reload();
          
        }
@@ -444,21 +448,21 @@ this.stockService.addWatchList(this.symbolObject)
   
   
   
-  ///Remove a favorite
+  //Remove a favorite
 deleteStock(stockID){
-   console.log("delete function was triggered",stockID);
+  console.log("delete function was triggered",stockID);
   this.stockService.deleteFavorite(stockID)
   .subscribe(
-     (data) =>{
+    (data) =>{
        
           console.log(data,"this was deleted");
-           location.reload();
+          location.reload();
        
-     }, (error)=>{
-         alert("There was an error!")
-         console.log(error,"error deleting")
+    }, (error)=>{
+        alert("There was an error!")
+        console.log(error,"error deleting")
        
-     }
+    }
     
     
     )

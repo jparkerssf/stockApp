@@ -6,7 +6,9 @@
  
  <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">   <span class="glyphicon glyphicon-signal" aria-hidden="true"></span> </a>
+      <!--<a class="navbar-brand" href="#">   <span class="glyphicon glyphicon-signal" aria-hidden="true"></span> </a>-->
+            <a class="navbar-brand" href="#">  <span class="navbar-toggler-icon"></span> </a>
+
     </div>
   </div>
 </nav>
@@ -116,7 +118,7 @@
 <!--  </div>-->
 <!-- </div>-->
 
-<div  *ngIf="lineChartData[0].data.length!==0" class="col-md-3" >
+<div  class="col-md-4" >
   <h2 class="text-center page-header"> My WatchList</h2>
   
 <ul  *ngFor="let stock of watchList" >
